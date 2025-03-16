@@ -5,7 +5,7 @@ Our online education platform fills a gap by offering a fair space for all educa
 We focus on making education accessible to everyone. By removing old barriers, we create a space that values local talent and practical skills. Teachers can design engaging lessons that truly connect with students, leading to better learning outcomes. In short, our platform builds an inclusive environment where independent educators and motivated learners work together to improve online education.
 
 # **Project Objectives**
-The project aims to build a **personalized learning platform** where teachers offer courses on the platform, while students are able to join the courses provided by teachers.
+The project aims to build a personalized learning platform where teachers offer courses on the platform, while students are able to join the courses provided by teachers.
 
 ---
 
@@ -42,13 +42,16 @@ The project aims to build a **personalized learning platform** where teachers of
 
 ## **Technical Implementation Approach**
 
-The platform will be built using a **Next.js full-stack approach** combined with an **Express.js backend** for API handling. This hybrid architecture leverages the benefits of **server-side rendering (SSR), static site generation (SSG), and API routes** in Next.js while maintaining the flexibility of an Express.js backend for complex API logic.
+The platform will be built using a **Next.js full-stack approach**, leveraging **server-side rendering (SSR), static site generation (SSG), and API routes** for backend logic. This approach ensures a seamless and efficient development experience while maintaining high performance.
 
 ### **Why This Approach?**
-- **Scalability**: Next.js allows optimized performance with its hybrid rendering model.
-- **Developer Efficiency**: Full-stack Next.js minimizes the need for separate frontend and backend hosting.
-- **Performance**: SSR improves SEO and reduces load times, especially for dynamic course content.
-- **Flexibility**: Express.js provides a lightweight yet powerful backend for API handling.
+- **Unified Full-Stack Development**: Eliminates the need for a separate backend, simplifying deployment and maintenance.
+- **Optimized Performance**: SSR improves SEO and reduces load times for dynamic course content.
+- **Scalability**: Next.js's hybrid rendering model enables efficient handling of both static and dynamic pages.
+- **API Routes for Backend Logic**: Built-in API routes handle authentication, course management, assignments, and calendar data without requiring an external backend framework.
+
+By using **Next.js as a full-stack solution**, we streamline development, reduce infrastructure complexity, and ensure an optimized learning platform experience.
+
 
 
 # **Database Schema and relationships**
@@ -172,7 +175,7 @@ To efficiently manage and store user-uploaded files, the platform will utilize a
 - **Service Considerations**:
   - AWS S3
   - Google Cloud Storage
-  - Firebase Storage
+  - DigitalOcean Storage
 
 ### **Why Cloud Storage?**
 - **Scalability**: Handles large file volumes without increasing server strain.
@@ -189,7 +192,7 @@ This section provides an overview of the user interface pages available in the p
 ## **User Registration and Login**
 - **User registration**: Users can sign up by providing a username, first name, last name, email, password (with confirmation), and role (teacher or student).
 - **User login**: Users can log in with their username and password.
-- **Switch between login and registration**: Users can navigate between the registration and login pages.
+
 
 ## **Dashboard**
 - **View courses**: Users can see a list of courses they are enrolled in or teaching.
@@ -233,21 +236,21 @@ This section provides an overview of the user interface pages available in the p
 The platform is designed to fully meet the core technical requirements while implementing **advanced features** to enhance functionality and user experience.
 
 ### **Frontend Requirements**
-- **React/Next.js for UI Development**: The platform uses **Next.js** to build an interactive and dynamic user experience.
+- **Next.js for UI Development**: The platform uses **Next.js** to build an interactive and dynamic user experience.
 - **Tailwind CSS for Styling**: A utility-first CSS framework ensures responsive and modern design.
 - **shadcn/ui for Components**: Prebuilt components for buttons, forms, and modals enhance UI consistency.
 - **Responsive Design**: The UI is fully optimized for different screen sizes to support mobile and desktop users.
 
 ### **Data Storage Requirements**
 - **PostgreSQL for Relational Data**: Prisma ORM is used to manage course data, user authentication, assignments, and submissions.
-- **Cloud Storage for File Handling**: An external cloud storage service (e.g., AWS S3, Firebase, or Google Cloud Storage) is used for **storing assignment submissions and course materials**, ensuring scalability.
+- **Cloud Storage for File Handling**: An external cloud storage service (e.g., AWS S3, DigitalOcean, or Google Cloud Storage) is used for **storing assignment submissions and course materials**, ensuring scalability.
 
 ### **Chosen Architecture Approach**
 The project follows **Option A: Next.js Full-Stack**, implementing:
-- **Next.js 13+ with App Router** for a **modern, server-driven architecture**.
-- **Server Components** to handle data fetching and processing efficiently.
-- **API Routes** to manage **CRUD operations** for users, courses, and assignments.
-- **Server Actions for Mutations**, ensuring smooth database updates and user interactions.
+- Next.js 13+ with App Router.
+- Server Components for backend logic.
+- API Routes for data handling.
+- Server Actions for mutations.
 
 ### **Advanced Features**
 - **User Authentication & Authorization**: 
@@ -256,14 +259,13 @@ The project follows **Option A: Next.js Full-Stack**, implementing:
   - Cloud storage integration for file uploads.
   - Pre-signed URL handling for secure file access.
   - Automatic file deletion upon course withdrawal.
-
-This implementation ensures the platform meets **all core requirements**.
-
+- **API Integration with External Services**:
+  - Cloud storage API integration for managing course materials and assignment submissions.
 
 ---
 ## **Discussion of Project Scope and Feasibility**
 
-To ensure successful completion within the given timeframe, we have **sharpened the project scope** to focus on the **essential core features**, including:
+To ensure successful completion within the given timeframe, we have narrowed the project scope to focus on the essential core features, including:
 
 - **User Authentication**: Secure registration and login with role-based access control.
 - **Course Creation and Management**: Teachers can create, modify, and manage courses, while students can enroll.
@@ -271,7 +273,7 @@ To ensure successful completion within the given timeframe, we have **sharpened 
 - **Course Materals**: Teachers can upload course materials to the platform.
 - **Calendar Integration**: Students can view upcoming assignment deadlines directly within the platform.
 
-By narrowing the scope to these key functionalities, we ensure that the platform remains **feasible within the timeframe** while maintaining a structured and efficient development process.
+By narrowing the scope to these key functionalities, we ensure that the platform remains feasible within the timeframe while maintaining a structured and efficient development process.
 
 
 
