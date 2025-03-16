@@ -1,4 +1,4 @@
-# personalized_learning_platform
+# Personalized_Learning_Platform
 # Motivation
 Our online education platform fills a gap by offering a fair space for all educators and learners. Unlike traditional platforms that require teachers to be linked with big institutions, our site lets anyone sign up without complex rules or strict tests. This way, hobbyists, freelancers, and experts alike can share their knowledge, giving students more choices.
 
@@ -275,6 +275,49 @@ To ensure successful completion within the given timeframe, we have narrowed the
 
 By narrowing the scope to these key functionalities, we ensure that the platform remains feasible within the timeframe while maintaining a structured and efficient development process.
 
+# **Tentative Plan**
+
+
+Our team will follow a structured and time-efficient approach to develop the **Personalized Learning Platform**, ensuring that core functionalities are implemented within the first three weeks, followed by a buffer week for refinements, and a final week for documentation and the demo video. Each member has well-defined responsibilities to ensure smooth execution. Each member will be responsible for implementing the frontend, backend, and database for our assigned features.
+
+
+### Team Responsibilities
+
+
+Based on the user interface pages, we have divided responsibilities to ensure an even workload distribution among team members, as follows:
+
+
+- **Member A (Registration, Authentication & Course People Management)**
+- **Member B (Assignments)**
+- **Member C (Dashboard & Material Handling & File Submission for Assignments)**
+
+
+### Execution Plan
+
+
+- **Weeks 1-3:** Core feature development, ensuring all primary functionalities are implemented.
+- **Week 4 (Buffer Week):** Debugging, refining UI/UX, performance optimization.
+- **Week 5:** Final report writing and demo video preparation.
+
+
+### Additional Features (if time allows)
+
+
+If implementation progresses ahead of schedule, the team will integrate the following enhancements:
+
+
+- **Calendar integration** for managing assignment deadlines.
+
+
+### Approach & Coordination
+
+
+- **Parallel Development:** Each team member will work on their respective tasks concurrently, ensuring efficiency.
+- **Regular Check-ins:** Weekly meetings to sync progress, resolve blockers, and integrate features.
+- **Iterative Testing:** Continuous testing of modules to identify and fix issues early.
+
+
+By following this plan, we are confident that we can complete the project within the given timeframe while maintaining a high-quality learning platform.
 
 
 
