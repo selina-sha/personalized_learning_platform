@@ -1,4 +1,7 @@
 # Personalized_Learning_Platform
+Xuhui Chen 1005684537
+Yunyang Sun 1005809877
+Kexin Sha 1005926848
 # Motivation
 Our online education platform fills a gap by offering a fair space for all educators and learners. Unlike traditional platforms that require teachers to be linked with big institutions, our site lets anyone sign up without complex rules or strict tests. This way, hobbyists, freelancers, and experts alike can share their knowledge, giving students more choices.
 
@@ -34,6 +37,9 @@ The project aims to build a personalized learning platform where teachers offer 
 - **Teachers**: Upload course materials to the platform.
 - **Students**: Upload assignment solutions.
 
+---
+
+## **Optional Features**
 ### **Calendar Integration**
 - **Deadline tracking**: Students can view upcoming assignment deadlines from all enrolled courses in a single calendar.  
 
@@ -271,6 +277,8 @@ To ensure successful completion within the given timeframe, we have narrowed the
 - **Course Creation and Management**: Teachers can create, modify, and manage courses, while students can enroll.
 - **Assignments**: Teachers can create assignments, students can submit solutions, and grading functionality is supported.
 - **Course Materals**: Teachers can upload course materials to the platform.
+
+In addition to the core features, we will implement the optional feature if time allows:
 - **Calendar Integration**: Students can view upcoming assignment deadlines directly within the platform.
 
 By narrowing the scope to these key functionalities, we ensure that the platform remains feasible within the timeframe while maintaining a structured and efficient development process.
