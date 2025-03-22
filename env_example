@@ -1,4 +1,2 @@
-// replace the followings to .env
-
-DATABASE_URL=postgres://user:password@localhost:5432/db
-NEXTAUTH_SECRET=your-secret-here
+DATABASE_URL="postgresql://user@localhost:5432/personalized_learning_platform?schema=public"
+NEXTAUTH_SECRET=some-very-secret-key
