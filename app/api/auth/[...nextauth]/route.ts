@@ -40,13 +40,21 @@ export const authOptions = {
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, token }) {
-      if (token.sub) {
-        session.user.id = token.sub;
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+        token.name = user.username; // or user.name if you prefer
       }
-      return session;
+      return token;
     },
-  },
+    async session({ session, token }) {
+      session.user.id = token.id;
+      session.user.role = token.role;
+      session.user.name = token.name; // so `session.user.name` shows username
+      return session;
+    }
+  }
 };
 
 const handler = NextAuth(authOptions);
