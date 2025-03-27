@@ -1,0 +1,2 @@
+DATABASE_URL="postgresql://user@localhost:5432/personalized_learning_platform?schema=public"
+NEXTAUTH_SECRET=some-very-secret-key

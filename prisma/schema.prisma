@@ -1,0 +1,119 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  TEACHER
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      Role
+  createdAt DateTime @default(now())
+
+  coursesTaught    Course[]       @relation("TeacherCourses")
+  enrollments      CourseEnrollment[]
+}
+
+model Course {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  active      Boolean   @default(true)
+  teacherId   Int
+
+  teacher     User      @relation("TeacherCourses", fields: [teacherId], references: [id], onDelete: Cascade)
+  enrollments CourseEnrollment[]
+  assignments Assignment[]
+}
+
+model CourseEnrollment {
+  userId    Int
+  courseId  Int
+
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  submissions AssignmentSubmission[]
+  grades      Grade[]
+
+  @@id([userId, courseId])
+}
+
+model Assignment {
+  id               Int       @id @default(autoincrement())
+  courseId         Int
+  title            String
+  deadline         DateTime
+  gradePercentage  Float     @db.Real
+  handout          String?
+
+  course           Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  submissions      AssignmentSubmission[]
+  grades           Grade[]
+}
+
+model AssignmentSubmission {
+  id               Int       @id @default(autoincrement())
+  assignmentId     Int
+  courseId         Int
+  userId           Int
+  filePath         String
+
+  assignment       Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  enrollment       CourseEnrollment @relation(fields: [userId, courseId], references: [userId, courseId], onDelete: Cascade)
+
+  @@unique([assignmentId, userId])
+}
+
+model Grade {
+  id               Int     @id @default(autoincrement())
+  assignmentId     Int
+  userId           Int
+  courseId         Int
+  grade            Float   @db.Real
+  comment          String?
+
+  assignment       Assignment @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  enrollment       CourseEnrollment @relation(fields: [userId, courseId], references: [userId, courseId], onDelete: Cascade)
+
+  @@unique([assignmentId, userId])
+}
+
+model MaterialFolder {
+  id        Int       @id @default(autoincrement())
+  parentId  Int?
+  name      String
+
+  parent    MaterialFolder? @relation("FolderParent", fields: [parentId], references: [id], onDelete: Cascade)
+  children  MaterialFolder[] @relation("FolderParent")
+  files     Material[]
+}
+
+model Material {
+  id              Int     @id @default(autoincrement())
+  parentFolderId  Int?
+  filename        String
+  filePath        String
+
+  parentFolder    MaterialFolder? @relation(fields: [parentFolderId], references: [id], onDelete: Cascade)
+}
