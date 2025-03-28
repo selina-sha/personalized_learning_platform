@@ -1,8 +1,9 @@
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
-import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/prisma";
 import { Card } from "@/components/ui/card";
 
 type DashboardPageProps = {
@@ -13,7 +14,10 @@ type DashboardPageProps = {
 
 export default async function DashboardPage({ searchParams }: DashboardPageProps) {
   const session = await getServerSession(authOptions);
+
   if (!session) redirect("/login");
+
+  const isTeacher = session.user.role === "TEACHER";
 
   const userId = parseInt(session.user.id);
   const role = session.user.role as "TEACHER" | "STUDENT";
@@ -41,7 +45,11 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
   return (
     <main className="p-6 space-y-6">
       <h1 className="text-3xl font-bold mb-4">Welcome to your Dashboard</h1>
-
+      {isTeacher && (
+        <Link href="/courses/create">
+          <Button>Create Course</Button>
+        </Link>
+      )}
       {/* Filter buttons */}
       <div className="flex gap-2">
         <FilterButton label="All" filter="ALL" current={filter} />
