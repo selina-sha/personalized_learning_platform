@@ -70,9 +70,11 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
               {course.active ? "Active" : "Inactive"}
             </p>
             {role === "TEACHER" && (
-              <Button variant="secondary" className="mt-2">
-                Edit Materials
-              </Button>
+            <div className="flex gap-2 mt-2">
+                <a href={`/courses/${course.id}/edit`}>
+                <Button variant="outline">Edit Course</Button>
+                </a>
+            </div>
             )}
           </Card>
         ))}
