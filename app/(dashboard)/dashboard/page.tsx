@@ -70,11 +70,6 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
                     <p className="text-sm text-gray-500">
                     {course.active ? "Active" : "Inactive"}
                     </p>
-                    {role === "TEACHER" && (
-                    <Button variant="secondary" className="mt-2">
-                        Edit Materials
-                    </Button>
-                    )}
                 </Card>
             </Link>
         ))}
