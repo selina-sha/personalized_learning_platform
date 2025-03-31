@@ -1,2 +1,5 @@
 DATABASE_URL="postgresql://user@localhost:5432/personalized_learning_platform?schema=public"
 NEXTAUTH_SECRET=some-very-secret-key
+
+NEXT_PUBLIC_SUPABASE_URL=https://etpkyzfnpyjholhctvee.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV0cGt5emZucHlqaG9saGN0dmVlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDI2Mjk0MzIsImV4cCI6MjA1ODIwNTQzMn0.7tgO4JEe2t2H6y9TxztKGkj98WNxv0PQSPxGJ9ZWteU
