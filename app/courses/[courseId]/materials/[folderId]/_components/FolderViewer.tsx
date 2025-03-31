@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { supabase } from "@/lib/supabase";
 
 type Props = {
     folder: {
@@ -48,6 +49,33 @@ export default function FolderViewer({ folder, folderPath, courseId, userRole }:
 
         setCreatingFolder(false);
     };
+
+    const [uploading, setUploading] = useState(false);
+
+    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("folderId", folder.id.toString());
+        formData.append("filename", file.name);
+
+        const res = await fetch(`/api/courses/${courseId}/materials/upload-server`, {
+            method: "POST",
+            body: formData,
+        });
+
+        const result = await res.json();
+
+        if (!res.ok) {
+            alert(`Upload failed: ${result.error}`);
+            return;
+        }
+
+        router.refresh();
+    };
+
 
     return (
         <div className="space-y-6">
@@ -116,6 +144,15 @@ export default function FolderViewer({ folder, folderPath, courseId, userRole }:
                         <Button onClick={createFolder} disabled={creatingFolder}>
                             Create
                         </Button>
+                    </div>
+                </section>
+            )}
+            {isTeacher && (
+                <section className="space-y-2">
+                    <h2 className="text-lg font-semibold">Upload File</h2>
+                    <div className="flex gap-2 items-center max-w-md">
+                        <Input type="file" onChange={handleUpload} />
+                        {uploading && <span className="text-sm text-muted-foreground">Uploading...</span>}
                     </div>
                 </section>
             )}
