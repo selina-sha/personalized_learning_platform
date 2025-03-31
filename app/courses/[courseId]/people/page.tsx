@@ -2,7 +2,6 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import AddStudentForm from "./AddStudentForm";
 import PeopleClient from "./PeopleClient";
 
 export default async function PeoplePage({ params }: { params: { courseId: string } }) {
@@ -15,11 +14,21 @@ export default async function PeoplePage({ params }: { params: { courseId: strin
   const course = await prisma.course.findUnique({
     where: { id: courseId },
     include: {
-      teacher: true,
-      enrollments: {
-        include: { user: true },
+        teacher: true,
+        enrollments: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                username: true,
+                firstName: true,
+                lastName: true,
+                email: true,
+              },
+            },
+          },
+        },
       },
-    },
   });
 
   if (!course) redirect("/dashboard");

@@ -3,13 +3,18 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+
 
 type Student = {
   id: number;
   username: string;
   firstName: string;
   lastName: string;
+  email: string;
 };
+  
+
 
 export default function PeopleClient({
   courseId,
@@ -23,6 +28,7 @@ export default function PeopleClient({
   const [students, setStudents] = useState<Student[]>(initialStudents);
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,25 +95,48 @@ export default function PeopleClient({
             {students.map((student) => (
               <li
                 key={student.id}
-                className="border rounded px-3 py-2 flex justify-between items-center"
-              >
+                className="border rounded px-3 py-2 flex justify-between items-center cursor-pointer hover:bg-accent"
+                onClick={() => setSelectedStudent(student)}
+                >
                 <div>
-                  {student.firstName} {student.lastName} ({student.username})
+                    {student.firstName} {student.lastName} ({student.username})
                 </div>
                 {isTeacher && (
-                  <Button
+                    <Button
                     variant="ghost"
                     className="text-red-600 text-xs"
-                    onClick={() => handleRemove(student)}
-                  >
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        handleRemove(student);
+                    }}
+                    >
                     Remove
-                  </Button>
+                    </Button>
                 )}
-              </li>
+                </li>
             ))}
-          </ul>
+            </ul>
         )}
       </div>
+
+      <Dialog open={!!selectedStudent} onOpenChange={() => setSelectedStudent(null)}>
+        <DialogContent>
+            <DialogHeader>
+            <DialogTitle>Student Details</DialogTitle>
+            <DialogDescription>More info about this student</DialogDescription>
+            </DialogHeader>
+
+            {selectedStudent && (
+            <div className="space-y-2 text-sm">
+                <p><strong>Username:</strong> {selectedStudent.username}</p>
+                <p><strong>Email:</strong> {selectedStudent.email}</p>
+                <p><strong>First Name:</strong> {selectedStudent.firstName}</p>
+                <p><strong>Last Name:</strong> {selectedStudent.lastName}</p>
+            </div>
+            )}
+        </DialogContent>
+        </Dialog>
+
     </div>
   );
 }
