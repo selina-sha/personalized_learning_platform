@@ -25,14 +25,14 @@ export default async function PeoplePage({ params }: { params: { courseId: strin
   if (!course) redirect("/dashboard");
 
   const isTeacher = userId === course.teacherId;
-  const students = course.enrollments.map((e) => e.user);
 
-  return (
+    const students = course.enrollments.map((e) => e.user);
+
+    return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">People</h1>
-      {isTeacher && <AddStudentForm courseId={courseId} />}
-
-      <PeopleClient courseId={courseId} students={students} isTeacher={isTeacher} />
+        <h1 className="text-2xl font-bold">People</h1>
+        <PeopleClient courseId={courseId} initialStudents={students} isTeacher={isTeacher} />
     </div>
-  );
+    );
+
 }

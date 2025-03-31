@@ -28,19 +28,35 @@ export async function POST(req: Request, { params }: { params: { courseId: strin
     return NextResponse.json({ error: "Student not found" }, { status: 404 });
   }
 
-  await prisma.courseEnrollment.upsert({
+  const existing = await prisma.courseEnrollment.findUnique({
     where: {
       userId_courseId: {
         userId: student.id,
         courseId,
       },
     },
-    update: {},
-    create: {
+  });
+
+  if (existing) {
+    return NextResponse.json({ error: "Student is already enrolled." }, { status: 400 });
+  }
+
+  await prisma.courseEnrollment.create({
+    data: {
       userId: student.id,
       courseId,
     },
   });
+
+  return NextResponse.json({
+    student: {
+      id: student.id,
+      username: student.username,
+      firstName: student.firstName,
+      lastName: student.lastName,
+    },
+  });
+
 
   return NextResponse.json({ success: true });
 }
