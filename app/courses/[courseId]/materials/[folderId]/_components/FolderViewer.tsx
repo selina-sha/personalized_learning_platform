@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { supabase } from "@/lib/supabase";
+
 
 type Props = {
     folder: {
@@ -121,13 +121,36 @@ export default function FolderViewer({ folder, folderPath, courseId, userRole }:
                 {folder.files.length === 0 ? (
                     <p className="text-muted-foreground">No files uploaded</p>
                 ) : (
-                    <ul className="list-disc pl-6 space-y-1">
-                        {folder.files.map((file) => (
-                            <li key={file.id}>
-                                <span className="text-muted-foreground">{file.filename}</span>
-                            </li>
-                        ))}
-                    </ul>
+<ul className="list-disc pl-6 space-y-1">
+  {folder.files.map((file) => (
+    <li key={file.id}>
+      <button
+        onClick={async () => {
+          const res = await fetch(
+            `/api/files/signed-url?filePath=${encodeURIComponent(file.filePath)}`
+          );
+          const data = await res.json();
+
+          if (!res.ok || !data.url) {
+            alert("Failed to generate download link");
+            return;
+          }
+
+          const a = document.createElement("a");
+          a.href = data.url;
+          a.setAttribute("download", file.filename);
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }}
+        className="text-blue-600 hover:underline"
+      >
+        {file.filename}
+      </button>
+    </li>
+  ))}
+</ul>
+
                 )}
             </section>
 
