@@ -63,18 +63,15 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           <p className="text-muted-foreground">No courses found for this filter.</p>
         )}
         {courses.map((course) => (
-          <Card key={course.id} className="p-4 space-y-2">
-            <h2 className="text-xl font-semibold">{course.name}</h2>
-            <p className="text-muted-foreground">{course.description}</p>
-            <p className="text-sm text-gray-500">
-              {course.active ? "Active" : "Inactive"}
-            </p>
-            {role === "TEACHER" && (
-              <Button variant="secondary" className="mt-2">
-                Edit Materials
-              </Button>
-            )}
-          </Card>
+            <Link key={course.id} href={`/courses/${course.id}`}>
+                <Card key={course.id} className="p-4 space-y-2">
+                    <h2 className="text-xl font-semibold">{course.name}</h2>
+                    <p className="text-muted-foreground">{course.description}</p>
+                    <p className="text-sm text-gray-500">
+                    {course.active ? "Active" : "Inactive"}
+                    </p>
+                </Card>
+            </Link>
         ))}
       </div>
     </main>
