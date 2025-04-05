@@ -1,22 +1,40 @@
 'use client';
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import SubmitAssignmentModal from "./SubmitAssignmentModal";
 
 export default function AssignmentActions({
     userRole,
+    hasSubmitted,
+    deadlinePassed,
+    submissionName,
+    courseId,
+    assignmentId,
 }: {
     userRole: "TEACHER" | "STUDENT";
+    hasSubmitted: boolean;
+    deadlinePassed: boolean;
+    submissionName: string;
+    courseId: number;
+    assignmentId: number;
 }) {
-    const handleEditClick = () => {
-        console.log("Edit Assignment clicked");
-    };
+    const [showModal, setShowModal] = useState(false);
 
     const handleSubmitClick = () => {
-        console.log("Submit Assignment clicked");
+        if (hasSubmitted) {
+            setShowModal(true);
+        } else {
+            setShowModal(true); // also show modal for first-time submission
+        }
     };
 
     const handleDownloadSubmission = () => {
         console.log("Download My Submission clicked");
+    };
+
+    const handleEditClick = () => {
+        console.log("Edit Assignment clicked");
     };
 
     const handleViewSubmissions = () => {
@@ -38,12 +56,33 @@ export default function AssignmentActions({
 
             {userRole === "STUDENT" && (
                 <>
-                    <Button onClick={handleSubmitClick}>Submit Assignment</Button>
-                    <Button variant="secondary" onClick={handleDownloadSubmission}>
-                        Download My Submission
+                    <Button
+                        variant={!deadlinePassed ? "default" : "secondary"}
+                        onClick={handleSubmitClick}
+                        disabled={deadlinePassed}
+                    >
+                        {deadlinePassed ? "Deadline Passed" : "Submit Assignment"}
+                    </Button>
+
+                    <Button
+                        variant={hasSubmitted ? "default" : "secondary"}
+                        onClick={handleDownloadSubmission}
+                        disabled={!hasSubmitted}
+                    >
+                        View My Submission
                     </Button>
                 </>
             )}
+
+            {/* Modal */}
+            <SubmitAssignmentModal
+                open={showModal}
+                onClose={() => setShowModal(false)}
+                courseId={courseId}
+                assignmentId={assignmentId}
+                submissionName={submissionName}
+                isOverwrite={hasSubmitted}
+            />
         </div>
     );
 }
