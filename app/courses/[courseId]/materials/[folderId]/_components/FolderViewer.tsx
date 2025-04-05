@@ -121,35 +121,66 @@ export default function FolderViewer({ folder, folderPath, courseId, userRole }:
                 {folder.files.length === 0 ? (
                     <p className="text-muted-foreground">No files uploaded</p>
                 ) : (
-<ul className="list-disc pl-6 space-y-1">
-  {folder.files.map((file) => (
-    <li key={file.id}>
-      <button
-        onClick={async () => {
-          const res = await fetch(
-            `/api/files/signed-url?filePath=${encodeURIComponent(file.filePath)}`
-          );
-          const data = await res.json();
+                    <ul className="list-disc pl-6 space-y-1">
+                        {folder.files.map((file) => (
+                            <li key={file.id} className="flex justify-between items-center">
+                                <button
+                                    onClick={async () => {
+                                        const res = await fetch(
+                                            `/api/files/signed-url?filePath=${encodeURIComponent(file.filePath)}`
+                                        );
+                                        const data = await res.json();
 
-          if (!res.ok || !data.url) {
-            alert("Failed to generate download link");
-            return;
-          }
+                                        if (!res.ok || !data.url) {
+                                            alert("Failed to generate download link");
+                                            return;
+                                        }
 
-          const a = document.createElement("a");
-          a.href = data.url;
-          a.setAttribute("download", file.filename);
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }}
-        className="text-blue-600 hover:underline"
-      >
-        {file.filename}
-      </button>
-    </li>
-  ))}
-</ul>
+                                        const a = document.createElement("a");
+                                        a.href = data.url;
+                                        a.setAttribute("download", file.filename);
+                                        document.body.appendChild(a);
+                                        a.click();
+                                        document.body.removeChild(a);
+                                    }}
+                                    className="text-blue-600 hover:underline"
+                                >
+                                    {file.filename}
+                                </button>
+
+                                {isTeacher  && (
+                                    <button
+                                        onClick={async () => {
+                                            const confirmed = window.confirm(`Delete "${file.filename}"?`);
+                                            if (!confirmed) return;
+
+                                            const res = await fetch(
+                                                `/api/courses/${courseId}/materials/delete-file`,
+                                                {
+                                                    method: "POST",
+                                                    headers: { "Content-Type": "application/json" },
+                                                    body: JSON.stringify({
+                                                        fileId: file.id,
+                                                        filePath: file.filePath,
+                                                    }),
+                                                }
+                                            );
+
+                                            if (res.ok) {
+                                                router.refresh(); // re-fetch the folder contents
+                                            } else {
+                                                alert("Failed to delete file.");
+                                            }
+                                        }}
+                                        className="text-sm text-red-500 hover:underline ml-4"
+                                    >
+                                        Delete
+                                    </button>
+                                )}
+                            </li>
+                        ))}
+                    </ul>
+
 
                 )}
             </section>

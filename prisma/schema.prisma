@@ -68,6 +68,7 @@ model Assignment {
   deadline        DateTime
   gradePercentage Float    @db.Real
   handout         String?
+  submissionName  String
 
   course      Course                 @relation(fields: [courseId], references: [id], onDelete: Cascade)
   submissions AssignmentSubmission[]
@@ -75,17 +76,19 @@ model Assignment {
 }
 
 model AssignmentSubmission {
-  id           Int    @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   assignmentId Int
   courseId     Int
   userId       Int
   filePath     String
+  submittedAt  DateTime  @default(now())
 
-  assignment Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
-  enrollment CourseEnrollment @relation(fields: [userId, courseId], references: [userId, courseId], onDelete: Cascade)
+  assignment   Assignment       @relation(fields: [assignmentId], references: [id], onDelete: Cascade)
+  enrollment   CourseEnrollment @relation(fields: [userId, courseId], references: [userId, courseId], onDelete: Cascade)
 
   @@unique([assignmentId, userId])
 }
+
 
 model Grade {
   id           Int     @id @default(autoincrement())
