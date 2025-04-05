@@ -3,7 +3,10 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export async function POST(req: Request, context: { params: { courseId: string } }) {
+export async function POST(
+    req: Request,
+    context: { params: { courseId: string } }
+) {
     const session = await getServerSession(authOptions);
 
     if (!session || session.user.role !== "TEACHER") {
@@ -12,9 +15,9 @@ export async function POST(req: Request, context: { params: { courseId: string }
 
     const courseId = parseInt(context.params.courseId);
     const body = await req.json();
-    const { title, deadline, gradePercentage, handout } = body;
+    const { title, deadline, gradePercentage, handout, submissionName } = body;
 
-    if (!title || !deadline || gradePercentage == null) {
+    if (!title || !deadline || gradePercentage == null || !submissionName) {
         return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
@@ -25,6 +28,7 @@ export async function POST(req: Request, context: { params: { courseId: string }
                 deadline: new Date(deadline),
                 gradePercentage,
                 handout: handout || null,
+                submissionName,
                 courseId,
             },
         });

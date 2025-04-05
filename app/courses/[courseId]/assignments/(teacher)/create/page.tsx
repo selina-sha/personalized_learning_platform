@@ -14,6 +14,7 @@ export default function CreateAssignmentPage({ params }: { params: { courseId: s
     const [deadline, setDeadline] = useState("");
     const [grade, setGrade] = useState("");
     const [handout, setHandout] = useState("");
+    const [submissionName, setSubmissionName] = useState("");
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -28,6 +29,7 @@ export default function CreateAssignmentPage({ params }: { params: { courseId: s
                 deadline,
                 gradePercentage: parseFloat(grade),
                 handout,
+                submissionName,
             }),
         });
 
@@ -73,6 +75,16 @@ export default function CreateAssignmentPage({ params }: { params: { courseId: s
                         rows={6}
                         value={handout}
                         onChange={(e) => setHandout(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div>
+                    <label className="block text-sm font-medium">Expected Submission Filename</label>
+                    <Input
+                        placeholder="e.g. solution.zip"
+                        value={submissionName}
+                        onChange={(e) => setSubmissionName(e.target.value)}
                         required
                     />
                 </div>
