@@ -24,6 +24,15 @@ export default async function AssignmentPage({
     if (!assignment || assignment.courseId !== courseId) {
         return <div className="text-red-500">Assignment not found or mismatched course.</div>;
     }
+    const submission = await prisma.assignmentSubmission.findUnique({
+        where: {
+            assignmentId_userId: {
+                assignmentId,
+                userId: parseInt(session.user.id),
+            },
+        },
+    });
+
 
     const handleEditClick = () => {
         // Placeholder for teacher: Edit assignment
@@ -48,7 +57,14 @@ export default async function AssignmentPage({
                     </p>
                 </div>
 
-                <AssignmentActions userRole={userRole} />
+                <AssignmentActions
+                    userRole={userRole}
+                    hasSubmission={!!submission}
+                    pastDeadline={new Date() > new Date(assignment.deadline)}
+                    submissionName={assignment.submissionName}
+                    assignmentId={assignment.id}
+                    courseId={courseId}
+                />
             </div>
 
 
