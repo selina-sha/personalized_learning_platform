@@ -59,7 +59,7 @@ export default async function AssignmentPage({
 
                 <AssignmentActions
                     userRole={userRole}
-                    hasSubmission={!!submission}
+                    hasSubmitted={!!submission}
                     pastDeadline={new Date() > new Date(assignment.deadline)}
                     submissionName={assignment.submissionName}
                     assignmentId={assignment.id}

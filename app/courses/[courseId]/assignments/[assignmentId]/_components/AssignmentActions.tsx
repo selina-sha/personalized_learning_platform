@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import SubmitAssignmentModal from "./SubmitAssignmentModal";
@@ -20,6 +21,7 @@ export default function AssignmentActions({
     assignmentId: number;
 }) {
     const [showModal, setShowModal] = useState(false);
+    const router = useRouter();
 
     const handleSubmitClick = () => {
         if (hasSubmitted) {
@@ -34,7 +36,7 @@ export default function AssignmentActions({
     };
 
     const handleEditClick = () => {
-        console.log("Edit Assignment clicked");
+        router.push(`/courses/${courseId}/assignments/${assignmentId}/edit`);
     };
 
     const handleViewSubmissions = () => {
