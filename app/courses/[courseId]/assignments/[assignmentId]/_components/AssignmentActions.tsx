@@ -40,7 +40,7 @@ export default function AssignmentActions({
     };
 
     const handleViewSubmissions = () => {
-        console.log("View All Submissions clicked");
+        router.push(`/courses/${courseId}/assignments/${assignmentId}/submissions`);
     };
 
     return (
