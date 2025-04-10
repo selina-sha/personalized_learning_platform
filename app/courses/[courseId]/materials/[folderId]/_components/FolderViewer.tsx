@@ -129,6 +129,10 @@ export default function FolderViewer({ folder, folderPath, courseId, userRole }:
                                         const res = await fetch(
                                             `/api/files/signed-url?filePath=${encodeURIComponent(file.filePath)}`
                                         );
+                                        if (res.redirected) {
+                                            window.location.href = res.url;
+                                            return;
+                                        }
                                         const data = await res.json();
 
                                         if (!res.ok || !data.url) {
@@ -148,7 +152,7 @@ export default function FolderViewer({ folder, folderPath, courseId, userRole }:
                                     {file.filename}
                                 </button>
 
-                                {isTeacher  && (
+                                {isTeacher && (
                                     <button
                                         onClick={async () => {
                                             const confirmed = window.confirm(`Delete "${file.filename}"?`);
