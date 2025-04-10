@@ -31,9 +31,9 @@ export default function AssignmentActions({
         }
     };
 
-    const handleDownloadSubmission = () => {
-        console.log("Download My Submission clicked");
-    };
+    const handleViewSubmission = () => {
+        router.push(`/courses/${courseId}/assignments/${assignmentId}/submission`);
+      };
 
     const handleEditClick = () => {
         router.push(`/courses/${courseId}/assignments/${assignmentId}/edit`);
@@ -68,7 +68,7 @@ export default function AssignmentActions({
 
                     <Button
                         variant={hasSubmitted ? "default" : "secondary"}
-                        onClick={handleDownloadSubmission}
+                        onClick={handleViewSubmission}
                         disabled={!hasSubmitted}
                     >
                         View My Submission
