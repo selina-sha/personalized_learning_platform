@@ -3,6 +3,30 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
+/**
+ * POST/PUT /api/courses/[courseId]/assignments/[assignmentId]/grade
+ * 
+ * @summary Manages student grade submissions
+ * 
+ * @description Allows authenticated teachers to:
+ * - POST: Create new grade entries
+ * - PUT: Update existing grade entries
+ * 
+ * @param {Request} req - HTTP request containing JSON body with grade data
+ * @param {{ params: { courseId: string; assignmentId: string } }} context - Route parameters containing:
+ *   - courseId: ID of the course (integer as string)
+ *   - assignmentId: ID of the assignment (integer as string)
+ * @returns {Promise<NextResponse>} - JSON response indicating:
+ * - Success with { success: true }
+ * - Error messages with appropriate HTTP status codes
+ * 
+ * @throws {403} If user is not authenticated as TEACHER
+ * @throws {400} For invalid/missing fields in request body
+ * @throws {409} (POST only) If grade already exists for student+assignment
+ * @throws {500} For database operation failures
+ */ 
+
+
 export async function POST(req: Request, context: { params: { courseId: string; assignmentId: string } }) {
     return handleGrade(req, context, "POST");
 }

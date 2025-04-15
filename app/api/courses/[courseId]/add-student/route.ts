@@ -3,6 +3,29 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
+
+/**
+ * POST /api/courses/[courseId]/add-student
+ *
+ * @summary Adds a student to the specified course by courseId.
+ * 
+ * @description Allows authenticated teachers to add students to courses they own. Performs:
+ * 1. Teacher authorization check
+ * 2. Course ownership validation
+ * 3. Student existence and role verification
+ * 4. Duplicate enrollment prevention
+ *
+ * @param {Request} req - The HTTP request object containing a JSON body with the student's username
+ * @param {{ params: { courseId: string } }} context - Route parameters containing the course ID as a string
+ * @returns {Promise<NextResponse>} - A JSON response containing either:
+ * - The enrolled student's details (ID, username, first/last name) on success
+ * - An error message with appropriate HTTP status code for failures
+ * 
+ * @throws {403} If user is not authenticated as a TEACHER or doesn't own the course
+ * @throws {404} If student isn't found or has invalid role
+ * @throws {400} If student is already enrolled in the course
+ */
+
 export async function POST(req: Request, { params }: { params: { courseId: string } }) {
   const session = await getServerSession(authOptions);
   if (!session || session.user.role !== "TEACHER") {
