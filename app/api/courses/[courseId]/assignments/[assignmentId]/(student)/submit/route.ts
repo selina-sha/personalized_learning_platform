@@ -9,6 +9,32 @@ const supabase = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+/**
+ * POST /api/courses/[courseId]/assignments/[assignmentId]/submit
+ * 
+ * @summary Handles assignment submission for students
+ * 
+ * @description Processes file uploads for assignments with strict filename validation. Performs:
+ * 1. Student authentication check
+ * 2. File presence and filename format validation
+ * 3. Assignment existence verification
+ * 4. Atomic file replacement in storage
+ * 5. Submission record synchronization in database
+ * 
+ * @param {Request} req - The HTTP request containing multipart form data with a submission file
+ * @param {{ params: { courseId: string; assignmentId: string } }} context - Route parameters containing:
+ *   - courseId: ID of the course (integer as string)
+ *   - assignmentId: ID of the assignment (integer as string)
+ * @returns {Promise<NextResponse>} - A JSON response indicating:
+ * - Success with { success: true } on successful submission
+ * - Error messages with appropriate HTTP status codes for failures
+ * 
+ * @throws {403} If user is not authenticated as a STUDENT
+ * @throws {400} For invalid requests (missing file, filename mismatch)
+ * @throws {404} If assignment isn't found or doesn't belong to course
+ * @throws {500} For Supabase storage upload failures
+ */ 
+
 export async function POST(
     req: Request,
     context: { params: { courseId: string; assignmentId: string } }

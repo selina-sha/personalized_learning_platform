@@ -6,6 +6,25 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+/**
+ * GET /api/files/signed-url
+ * 
+ * @summary Generates a time-limited access URL for protected files
+ * @description
+ * 1. Validates presence of filePath query parameter
+ * 2. Generates signed URL with 60-second expiration
+ * 3. Handles Supabase storage errors
+ * 4. Redirects client to temporary access URL
+ * 
+ * @param {NextRequest} req - Incoming request with filePath query parameter
+ * @returns {Promise<NextResponse>} - Response with:
+ * - Redirect to signed URL (302 status)
+ * - Error message with appropriate HTTP status code for failures
+ * 
+ * @throws {400} Bad Request - Missing filePath parameter
+ * @throws {500} Internal Server Error - Failed to generate signed URL
+ */ 
+
 export async function GET(req: NextRequest) {
   const filePath = req.nextUrl.searchParams.get("filePath");
 
