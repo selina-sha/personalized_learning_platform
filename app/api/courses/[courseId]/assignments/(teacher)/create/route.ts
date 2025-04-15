@@ -3,6 +3,22 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
+/**
+ * Creates a new assignment for a specific course.
+ *
+ * - Requires a valid teacher session.
+ * - Expects the course ID in the URL parameters.
+ * - Expects a JSON body with the following fields:
+ *   - title (string, required)
+ *   - deadline (string in ISO format, required)
+ *   - gradePercentage (number, required)
+ *   - submissionName (string, required)
+ *   - handout (string, optional)
+ *
+ * @param {Request} req - The HTTP request object containing assignment data.
+ * @param {{ params: { courseId: string } }} context - Route parameters with the course ID.
+ * @returns {Promise<NextResponse>} - A JSON response with the created assignment on success, or an error response on failure.
+ */
 export async function POST(
     req: Request,
     context: { params: { courseId: string } }

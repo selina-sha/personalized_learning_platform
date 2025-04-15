@@ -3,6 +3,19 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
+/**
+ * Creates a new course.
+ *
+ * - Requires a teacher session.
+ * - Expects form data with:
+ *   - name (string, required)
+ *   - description (string, optional)
+ *   - startTime (string in ISO format, required)
+ *   - endTime (string in ISO format, required)
+ *
+ * @param {Request} req - Request with form data.
+ * @returns {Promise<NextResponse>} - Redirects to dashboard on success, or returns an error.
+ */
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
 

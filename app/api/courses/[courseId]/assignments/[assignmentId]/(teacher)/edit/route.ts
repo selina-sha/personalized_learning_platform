@@ -3,6 +3,20 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 
+/**
+ * Updates an existing assignment for a course.
+ *
+ * - Requires a valid teacher session.
+ * - Expects a JSON body with:
+ *   - title (string, required)
+ *   - deadline (string in ISO format, required)
+ *   - gradePercentage (number, required)
+ *   - handout (string, optional)
+ *
+ * @param {Request} req - The HTTP request containing update data.
+ * @param {{ params: { courseId: string; assignmentId: string } }} context - Route parameters with course and assignment IDs.
+ * @returns {Promise<NextResponse>} - A JSON response with the updated assignment on success, or an error response on failure.
+ */
 export async function PUT(
     req: Request,
     context: { params: { courseId: string; assignmentId: string } }

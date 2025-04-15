@@ -3,6 +3,20 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
+/**
+ * Retrieves assignments and grading information for a specific course for a student.
+ *
+ * - Requires a valid student session.
+ * - Expects the course ID in the URL parameters.
+ * - Returns a JSON response containing a list of assignments with additional details:
+ *   - Whether each assignment has been submitted.
+ *   - Whether it has been graded.
+ *   - The grade value, if available.
+ *
+ * @param {Request} req - The HTTP request object.
+ * @param {{ params: { courseId: string } }} context - Route parameters containing the course ID.
+ * @returns {Promise<NextResponse>} - A JSON response with the assignments and grading details.
+ */
 export async function GET(
     req: Request,
     context: { params: { courseId: string } }
