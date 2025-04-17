@@ -44,12 +44,22 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
 
   return (
     <main className="p-6 space-y-6">
-      <h1 className="text-3xl font-bold mb-4">Welcome to your Dashboard</h1>
-      {isTeacher && (
-        <Link href="/courses/create">
-          <Button>Create Course</Button>
+      <div className="flex justify-between items-start mb-4">
+        {/* Left: title above create button */}
+        <div className="flex flex-col gap-2">
+          <h1 className="text-3xl font-bold">Welcome to your Dashboard</h1>
+          {isTeacher && (
+            <Link href="/courses/create">
+              <Button>Create Course</Button>
+            </Link>
+          )}
+        </div>
+
+        {/* Right: always on the far right, aligned to top */}
+        <Link href="/profile">
+          <Button>Your Profile</Button>
         </Link>
-      )}
+      </div>
       {/* Filter buttons */}
       <div className="flex gap-2">
         <FilterButton label="All" filter="ALL" current={filter} />
