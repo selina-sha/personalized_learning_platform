@@ -220,6 +220,131 @@ The project follows **Option A: Next.js Full-Stack**, implementing:
 
 # **User Guide**
 
+## 1. User Registration and Login
+1. Visit the homepage at `localhost:3000`
+2. Click **Register** to create an account, or **Login** if you already have one
+3. For "Register", fill in your credentials and choose a role: **Teacher** or **Student**, then it will redirect to "Login"
+4. For "Login", use the username and password that you registered
+
+![homepage](./screenshots/1.png)
+![register page](./screenshots/2.png)
+![login page](./screenshots/3.png)
+
+## 2. Dashboard Overview
+After logging in:
+- **Teachers** see a list of courses they created, as well as the **Create Course** button
+- **Students** see courses they are enrolled in
+- Each course is clickable to see details
+- Use the filter buttons ("All", "Active", "Inactive") to view relevant courses
+- Use **Your Profile** button to view personal profile
+
+Teacher_dashboard:
+![Teacher dashboard](./screenshots/4.png)
+Student_dashboard :
+![Student dashboard](./screenshots/5.png)
+Profile:
+![Profile](./screenshots/29.png)
+
+## 3. Creating a Course (Teacher Only)
+1. Click **Create Course** on the dashboard
+2. Fill in course details: course name, description, start/end date
+3. Click **Create** to publish
+
+![Create course](./screenshots/6.png)
+
+## 4. Course Overview
+### Teacher:
+- Navigation menu: home, people, assignments, materials
+- Home: Display course information; edit course
+- People: Display list of enrolled students; manage students
+- Assignments: Display the current assignments (click to see details); create or edit assignments
+- Materials: Display any course material files and manage them
+
+home:
+![Teacher home](./screenshots/7.png)
+people:
+![Teacher people](./screenshots/8.png)
+
+### Student:
+- Navigation menu: home, people, assignments, materials, grades
+- Home: Display course information
+- People: Display list of enrolled students
+- Assignments: Display the current assignments (click to see details); submit assignments; view submission
+- Materials: Display any course material files
+
+home:
+![Student home](./screenshots/9.png)
+people:
+![Student people](./screenshots/10.png)
+
+## 5. Edit Course (Teacher Only)
+1. Open a course → Go to **Home** tab
+2. Click **Edit Course**
+3. Enter all the details need to be changed including making the course active or inactive, then click **Save Changes**
+
+![Edit course](./screenshots/11.png)
+
+## 6. Managing People (Teacher Only)
+### Add a Student:
+1. Open a course → Go to **People** tab
+2. Enter student username under "Add Student" section, and click **Add**
+3. Student will be enrolled in the course, name will be showed under "Enrolled Students" section
+
+![Add student 1](./screenshots/12.png)
+![Add student 2](./screenshots/13.png)
+
+### Remove a Student:
+1. From the "Enrolled Students" list, click **Remove** beside a student's name
+
+![Remove student](./screenshots/14.png)
+
+## 7. Uploading Materials (Teacher Only)
+1. Inside a course, go to the **Materials** tab
+2. Create folders if needed
+3. Upload files (PDFs, videos, etc.) in the corresponding folders to organize learning materials
+4. Click **Delete** beside the file to delete any undesired files
+
+![Upload materials 1](./screenshots/15.png)
+![Upload materials 2](./screenshots/16.png)
+
+## 8. Assignments (Both Roles)
+Both teacher and student will see the assignment list under the **Assignments** tab.
+Each assignment in the list is clickable.
+
+### For Teachers:
+- Create an assignment with **Create Assignment** button
+- Set assignment details and specify the expected submission filename
+- Each assignment is able to be edited and all student submission is accessible
+- Click **View Submissions** to download the submission file of each student and grade it
+
+![Teacher assignment 1](./screenshots/17.png)
+![Teacher assignment 2](./screenshots/18.png)
+![Teacher assignment 3](./screenshots/19.png)
+![Teacher assignment 4](./screenshots/20.png)
+![Teacher assignment 5](./screenshots/21.png)
+
+### For Students:
+- Submit files via the **Submit Assignment** button
+- Files must match the expected name format
+
+![Student assignment 1](./screenshots/22.png)
+![Student assignment 2](./screenshots/23.png)
+![Student assignment 3](./screenshots/24.png)
+
+## 9. Grading and Viewing Grades
+### Teachers:
+- Go to Assignments tab → choose the specific assignment → **View Submissions** -> **Download** the file to review -> **Grade** submitted files
+- Provide optional comments
+
+![Grading 1](./screenshots/25.png)
+![Grading 2](./screenshots/26.png)
+
+### Students:
+- View feedback and grades in the **Grades** tab or **View My Submission** in each assignment
+
+![Student grades 1](./screenshots/27.png)
+![Student grades 2](./screenshots/28.png)
+
 # **Development Guide**
 
 # **Deployment Information**
