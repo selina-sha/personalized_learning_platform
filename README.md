@@ -347,9 +347,153 @@ Each assignment in the list is clickable.
 
 # **Development Guide**
 
+## Environment Setup
+
+The project requires:
+
+- [Node.js](https://nodejs.org/) and `npm`
+- A running **PostgreSQL** instance
+- A **Supabase** account for file storage
+
+---
+
+## Setup Script
+
+We provide a bash script to automate environment configuration:
+
+```
+#!/bin/bash
+
+echo "Setting up environment..."
+
+# Prompt for DB username
+read -p "Enter your PostgreSQL username: " db_user
+
+# Create .env file from template
+cp env_example .env
+
+# Replace the default username with the user's input
+sed -i '' "s/user@localhost/${db_user}@localhost/" .env
+
+# Run setup commands
+echo "Installing dependencies..."
+npm install
+
+echo "Generating Prisma client..."
+npx prisma generate
+
+echo "Setup complete. .env configured with username '${db_user}'"
+echo "Run the server with: npm run dev"
+```
+
+---
+
+## .env File Configuration
+
+Your `.env` file should include the following environment variables:
+
+```
+DATABASE_URL=postgresql://user@localhost:5432/dbname
+NEXTAUTH_SECRET=your-secret
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+```
+
+---
+
+## Database Initialization
+
+Once your `.env` is configured:
+
+1. Create the database manually or through a GUI like `psql` or TablePlus.
+2. Run the Prisma migrations to set up your schema:
+
+```
+npx prisma migrate dev --name init
+```
+
+---
+
+## Cloud Storage Configuration (Supabase)
+
+We use Supabase for managing file uploads:
+
+- A Supabase bucket (e.g., `course-materials`) must be created.
+- Files are uploaded via server routes using the **Service Role Key** for full access.
+- Students download materials using **signed URLs** for secure, temporary access.
+
+Note: Only private buckets are supported.
+
+---
+
+## Local Development and Testing
+
+You can run the development server using:
+
+```
+npm run dev
+```
+
+### Tools:
+
+- **Prisma Studio**: to browse and edit your data
+
+```
+npx prisma studio
+```
+
+- Local testing: The full functionality of the platform can be tested locally, including user authentication, course creation and editing, file upload and retrieval, student enrollment, assignment publishing, and student submissions. This allows end-to-end validation without needing to deploy to production.
+
+
 # **Deployment Information**
 
 # **Individual Contributions**
+
+## Git Contribution Summary
+
+We ran `git fame` in the `app/` directory to measure each member’s net meaningful code contribution. All members exceeded the required threshold of **1000 lines of code (LOC)**.
+
+### Project Stats:
+- **Total commits analyzed**: 373
+- **Total files tracked**: 55
+- **Total lines of code (LOC)**: 3,494
+
+### Contribution Breakdown:
+
+| Author       | LOC   | Commits | Files | Distribution (LOC/Commits/Files) |
+|--------------|-------|---------|--------|----------------------------------|
+| Kexin Sha    | 1190  | 20      | 20     | 34.1% / 27.0% / 36.4%            |
+| Xuhui Chen   | 1183  | 33      | 18     | 33.9% / 44.6% / 32.7%            |
+| Yunyang Sun  | 1121  | 19      | 17     | 32.1% / 25.7% / 30.9%            |
+
+Each team member contributed meaningfully across the codebase, with balanced effort in both logic and structure.
+
+### Xuhui Chen
+- Designed and implemented authentication and role-based access (e.g., login, register, access control)
+- Developed the course people management feature (adding/removing students, viewing details)
+- Set up Supabase cloud storage integration, including file upload and signed URL downloads
+- Led database schema design, including Prisma schema, migrations, and relationships
+- Implemented course material folder/file view and upload functionality
+- Wrote core environment setup scripts and `.env` configuration
+- Helped review and merge various pull requests from team members
+
+### Yunyang Sun
+- Implemented assignment submission flow for students
+- Developed the assignment grading interface for teachers
+- Added viewable submission details and grade history
+- Refined edit-assignment logic and UI interactions
+- Contributed to the add/remove student logic and real-time updates
+- Authored inline and API documentation related to assignments and submissions
+
+### Kexin Sha
+- Designed and implemented course dashboard, course home, and edit views
+- Built the assignment list, create assignment form, and assignment detail page
+- Created UI for viewing submissions and student grades
+- Developed "Your Profile" view and contributed to layout consistency
+- Authored inline documentation and project API descriptions
+- Merged and managed multiple UI and feature branches
+
 
 ## Kexin (Selina) Sha’s Contribution
 
