@@ -446,8 +446,6 @@ npx prisma studio
 - Local testing: The full functionality of the platform can be tested locally, including user authentication, course creation and editing, file upload and retrieval, student enrollment, assignment publishing, and student submissions. This allows end-to-end validation without needing to deploy to production.
 
 
-# **Deployment Information**
-
 # **Individual Contributions**
 
 ## Git Contribution Summary
