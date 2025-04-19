@@ -507,3 +507,6 @@ We used Next.js’s built‑in page rendering features together with Supabase fo
 Overall, this project successfully delivered an inclusive, scalable learning platform that empowers any educator to share expertise and any learner to access diverse courses. By combining a robust relational schema, end‑to‑end type safety in TypeScript, and cloud‑native storage, we met our objectives for performance, reliability, and ease of use. Moving forward, we can build on this foundation with features like real‑time notifications, analytics dashboards, and more granular permissions to further enhance the teaching and learning experience.
 
 # Video Demo
+Watch it from screenshots/demo.mp4 
+OR 
+https://drive.google.com/file/d/1uQwXL8J_uBCNbce3_hQ1liCyEGFlF_fB/view?usp=sharing
