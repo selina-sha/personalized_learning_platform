@@ -494,17 +494,6 @@ Each team member contributed meaningfully across the codebase, with balanced eff
 - Authored inline documentation and project API descriptions
 - Merged and managed multiple UI and feature branches
 
-
-## Kexin (Selina) Sha’s Contribution
-
-- Set up Github Repository
-- Wrote project proposal motivation section
-- Implemented features
-    - **Courses related:** create course, edit course, course home page
-    - **Assignment related:** assignment list, create assignment feature, assignment details, upload materials, edit assignments
-    - **Display Information:** view grade, view submission, view user profile
-- Completed inline api documentation
-
 # **Lessons Learned**
 
 ## Iterative Data Modeling & API Contract Design
